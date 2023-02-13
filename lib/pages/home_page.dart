@@ -24,14 +24,16 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                const Text(
-                  'Time Spent',
-                  style: TextStyle(
-                    color: Colors.black87,
-                    fontSize: 20,
+                const Chip(
+                  label: Text(
+                    'Time Spent',
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 20,
+                    ),
                   ),
                 ),
                 Padding(

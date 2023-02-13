@@ -75,29 +75,31 @@ class _StopWatchWidgetState extends State<StopWatchWidget> {
   }
 
   Widget _buildResetCurrentTime() {
-    return TextButton(
-        onPressed: () {
-          _counterTimer?.cancel();
-          setState(() {
-            _totalNumber -= _countNumber;
-            _countNumber = 0;
-            _isCounting = false;
-          });
-        },
-        child: const Text('CLEAR'));
+    return OutlinedButton(
+      onPressed: () {
+        _counterTimer?.cancel();
+        setState(() {
+          _totalNumber -= _countNumber;
+          _countNumber = 0;
+          _isCounting = false;
+        });
+      },
+      child: const Text('CLEAR'),
+    );
   }
 
   Widget _buildResetTotalTime() {
-    return TextButton(
-        onPressed: () {
-          _counterTimer?.cancel();
-          widget.onStop(Duration.zero);
-          setState(() {
-            _totalNumber = 0;
-            _isCounting = false;
-          });
-        },
-        child: const Text('CLEAR'));
+    return OutlinedButton(
+      onPressed: () {
+        _counterTimer?.cancel();
+        widget.onStop(Duration.zero);
+        setState(() {
+          _totalNumber = 0;
+          _isCounting = false;
+        });
+      },
+      child: const Text('CLEAR'),
+    );
   }
 
   @override
@@ -109,25 +111,38 @@ class _StopWatchWidgetState extends State<StopWatchWidget> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
+              mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  widget.tagName,
-                  style: const TextStyle(
-                    color: Colors.black87,
-                    fontSize: 20,
+                Chip(
+                  label: Text(
+                    widget.tagName,
+                    style: const TextStyle(
+                      color: Colors.black87,
+                      fontSize: 20,
+                    ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
+                  padding: const EdgeInsets.only(top: 20.0, left: 16),
                   child: Text(DateTimeUtils.getDurationFormat(_totalNumber)),
                 ),
-                _buildResetTotalTime(),
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0, left: 10),
+                  child: _buildResetTotalTime(),
+                ),
               ],
             ),
             Column(
               children: [
-                _isCounting ? _buildStopButton() : _buildStartButton(),
+                SizedBox(
+                  height: 200,
+                  width: 200,
+                  child: FittedBox(
+                    child:
+                        _isCounting ? _buildStopButton() : _buildStartButton(),
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0),
                   child: Text(DateTimeUtils.getDurationFormat(_countNumber)),
